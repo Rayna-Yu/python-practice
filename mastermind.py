@@ -19,6 +19,7 @@ def gameOver(result):
     return not all(elem == "🟩" for elem in result)
 
 score = 0
+while gameState:
     guess = input("Guess a 5 digit number: ")
     if guess.isdigit() and len(str(guess)) == 5:
         result = checkCorrect(str(guess))
