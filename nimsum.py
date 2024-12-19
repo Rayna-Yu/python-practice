@@ -3,14 +3,20 @@ import random
 class NimSum:
     def __init__(self):
         self.board = NimSum.make_board() # initial board
-        self.player = NimSum.assign_player() # assigns player 
-        self.curPlayer = 1
+        self.player = 0 # assigns player as 0 at first
+        self.curPlayer = 1 # the current player starts at player 1
 
     def play(self):
+        print("Welcome to the nim sum game!")
+        print("On your turn you may only take from one row")
+        print("from the row you choose, can take as many as you want")
+        print("Your goal is to be the last one to take from the board")
+        print("Good luck!")
+        self.player = NimSum.assign_player()
         while not self._game_end():
-            self._draw_game()
             if self.curPlayer == self.player:
                 print("your turn!")
+                self._draw_game()
                 while True:
                     try:
                         player_move_row = int(input("Which row would you like to play? (Enter a number): "))
@@ -28,10 +34,11 @@ class NimSum:
                         print("Please enter a valid number.")
             else:
                 print("computers turn!")
+                self._draw_game()
                 self._play_game() # computer plays
                 self._next_player() # switch to user
         print("Final board state:", self.board)
-        if self.curPlayer == self.player:
+        if self.curPlayer == self._next_player():
             print("You won! :)")
         else:
             print("Computer won! :(")
@@ -42,7 +49,6 @@ class NimSum:
     
     # draws the game by drawing telling who the current player is and the current board
     def _draw_game(self):
-        print(f"{self.curPlayer} now playing...")
         for row in range(len(self.board)):
             print(f"Row {row + 1}: " + ("X" * self.board[row]))
 
